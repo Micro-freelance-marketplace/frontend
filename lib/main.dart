@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'views/auth/login_screen.dart';
+import 'providers/auth_provider.dart';
+import 'routes/app_router.dart';
 
 void main() {
-  runApp(const CampusFreelanceMarketplaceApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AuthProvider()..initialize(),
+      child: const CampusFreelanceMarketplaceApp(),
+    ),
+  );
 }
 
 class CampusFreelanceMarketplaceApp extends StatelessWidget {
@@ -11,7 +18,7 @@ class CampusFreelanceMarketplaceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Campus Freelance Marketplace',
       theme: ThemeData(
@@ -28,7 +35,7 @@ class CampusFreelanceMarketplaceApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginScreen(),
+      routerConfig: AppRouter.router,
     );
   }
 }
